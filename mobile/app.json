@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "meali",
+    "slug": "meali",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "meali",
+    "platforms": ["ios", "android"],
+    "newArchEnabled": true
+  }
+}
