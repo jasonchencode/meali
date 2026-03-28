@@ -1,31 +1,26 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserProfile } from "../types/profile";
 
-// Use 10.0.2.2 for Android emulator, localhost for iOS simulator.
-// Replace with your machine's local IP when testing on a physical device.
-const BASE_URL = "http://10.216.220.177:3000";
+const STORAGE_KEY = "meali:user-profile";
+const WEEKLY_MEALS_KEY = "meali:weekly-meals";
 
 export async function getUserProfile(): Promise<UserProfile | null> {
-  const response = await fetch(`${BASE_URL}/api/user/profile`);
-  if (response.status === 404) return null;
-  if (!response.ok) throw new Error("Failed to fetch profile.");
-  const data = await response.json();
-  return {
-    equipment: data.equipment,
-    diets: data.diets,
-    budgetLevel: data.budgetLevel,
-    weeklyRunFrequency: data.weeklyRunFrequency,
-  };
+  const rawProfile = await AsyncStorage.getItem(STORAGE_KEY);
+  if (!rawProfile) {
+    return null;
+  }
+
+  return JSON.parse(rawProfile) as UserProfile;
 }
 
 export async function createUserProfile(profile: UserProfile): Promise<void> {
-  const response = await fetch(`${BASE_URL}/api/user/profile`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(profile),
-  });
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+}
 
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.error ?? "Failed to save profile.");
-  }
+export async function getWeeklyMealIdeas(): Promise<string> {
+  return (await AsyncStorage.getItem(WEEKLY_MEALS_KEY)) ?? "";
+}
+
+export async function saveWeeklyMealIdeas(value: string): Promise<void> {
+  await AsyncStorage.setItem(WEEKLY_MEALS_KEY, value);
 }
