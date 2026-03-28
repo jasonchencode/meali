@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { createUserProfile } from "../../api/userProfile";
 import StepIndicator from "../../components/StepIndicator";
 import { BudgetLevel } from "../../types/profile";
@@ -22,15 +22,25 @@ type Props = NativeStackScreenProps<RootStackParamList, "Onboarding">;
 
 const TOTAL_STEPS = 4;
 
-export default function OnboardingScreen({ navigation }: Props) {
+export default function OnboardingScreen({ navigation, route }: Props) {
+  const initialProfile = route.params?.initialProfile;
+  const isEditing = route.params?.isEditing ?? false;
+
   const [step, setStep] = useState(0);
-  const [equipment, setEquipment] = useState<string[]>([]);
-  const [diets, setDiets] = useState<string[]>([]);
-  const [budgetLevel, setBudgetLevel] = useState<BudgetLevel | null>(null);
-  const [weeklyRunFrequency, setWeeklyRunFrequency] = useState(2);
+  const [equipment, setEquipment] = useState<string[]>(
+    initialProfile?.equipment ?? []
+  );
+  const [diets, setDiets] = useState<string[]>(initialProfile?.diets ?? []);
+  const [budgetLevel, setBudgetLevel] = useState<BudgetLevel | null>(
+    initialProfile?.budgetLevel ?? null
+  );
+  const [weeklyRunFrequency, setWeeklyRunFrequency] = useState(
+    initialProfile?.weeklyRunFrequency ?? 2
+  );
   const [loading, setLoading] = useState(false);
 
   function canAdvance(): boolean {
+    if (step === 0 && equipment.length === 0) return false;
     if (step === 2 && budgetLevel === null) return false;
     return true;
   }
@@ -40,12 +50,15 @@ export default function OnboardingScreen({ navigation }: Props) {
       setStep((s) => s + 1);
       return;
     }
-    // Final step — submit
     if (!budgetLevel) return;
     setLoading(true);
     try {
       await createUserProfile({ equipment, diets, budgetLevel, weeklyRunFrequency });
-      navigation.replace("Confirmation");
+      if (isEditing) {
+        navigation.replace("Home");
+      } else {
+        navigation.replace("Confirmation");
+      }
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : "Something went wrong.";
       Alert.alert("Error", message);
@@ -55,9 +68,14 @@ export default function OnboardingScreen({ navigation }: Props) {
   }
 
   function handleBack() {
-    if (step > 0) setStep((s) => s - 1);
+    if (step > 0) {
+      setStep((s) => s - 1);
+    } else if (isEditing) {
+      navigation.goBack();
+    }
   }
 
+  const showBack = step > 0 || isEditing;
   const isLastStep = step === TOTAL_STEPS - 1;
 
   return (
@@ -65,7 +83,7 @@ export default function OnboardingScreen({ navigation }: Props) {
       <View style={styles.container}>
         <View style={styles.header}>
           <StepIndicator total={TOTAL_STEPS} current={step} />
-          {step > 0 && (
+          {showBack && (
             <TouchableOpacity onPress={handleBack} hitSlop={12}>
               <Text style={styles.back}>Back</Text>
             </TouchableOpacity>
@@ -97,7 +115,7 @@ export default function OnboardingScreen({ navigation }: Props) {
             <ActivityIndicator color="#FFFFFF" />
           ) : (
             <Text style={styles.nextBtnText}>
-              {isLastStep ? "Finish" : "Continue"}
+              {isLastStep ? (isEditing ? "Save" : "Finish") : "Continue"}
             </Text>
           )}
         </TouchableOpacity>

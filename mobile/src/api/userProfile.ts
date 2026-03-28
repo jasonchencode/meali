@@ -4,6 +4,19 @@ import { UserProfile } from "../types/profile";
 // Replace with your machine's local IP when testing on a physical device.
 const BASE_URL = "http://10.216.220.177:3000";
 
+export async function getUserProfile(): Promise<UserProfile | null> {
+  const response = await fetch(`${BASE_URL}/api/user/profile`);
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error("Failed to fetch profile.");
+  const data = await response.json();
+  return {
+    equipment: data.equipment,
+    diets: data.diets,
+    budgetLevel: data.budgetLevel,
+    weeklyRunFrequency: data.weeklyRunFrequency,
+  };
+}
+
 export async function createUserProfile(profile: UserProfile): Promise<void> {
   const response = await fetch(`${BASE_URL}/api/user/profile`, {
     method: "POST",
