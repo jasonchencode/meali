@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { createUserProfile } from "../../api/userProfile";
+import { createUserProfile, updateUserProfile } from "../../api/userProfile";
 import StepIndicator from "../../components/StepIndicator";
 import { BudgetLevel } from "../../types/profile";
 import { RootStackParamList } from "../../types/navigation";
@@ -53,12 +53,12 @@ export default function OnboardingScreen({ navigation, route }: Props) {
     if (!budgetLevel) return;
     setLoading(true);
     try {
-      await createUserProfile({ equipment, diets, budgetLevel, weeklyRunFrequency });
       if (isEditing) {
-        navigation.replace("Home");
+        await updateUserProfile({ equipment, diets, budgetLevel, weeklyRunFrequency });
       } else {
-        navigation.replace("Confirmation");
+        await createUserProfile({ equipment, diets, budgetLevel, weeklyRunFrequency });
       }
+      navigation.replace(isEditing ? "Home" : "Confirmation");
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : "Something went wrong.";
       Alert.alert("Error", message);
