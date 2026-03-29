@@ -78,17 +78,17 @@ router.put("/", async (req: Request, res: Response) => {
       .json({ error: "weeklyRunFrequency must be a positive integer." });
   }
 
-  const existing = await prisma.userProfile.findFirst({
-    orderBy: { createdAt: "desc" },
-  });
+  const existing = await readUserProfile();
 
   if (!existing) {
     return res.status(404).json({ error: "No profile found to update." });
   }
 
-  const updated = await prisma.userProfile.update({
-    where: { id: existing.id },
-    data: { equipment, diets, budgetLevel, weeklyRunFrequency },
+  const updated = await saveUserProfile({
+    equipment,
+    diets,
+    budgetLevel,
+    weeklyRunFrequency,
   });
 
   return res.json(updated);
