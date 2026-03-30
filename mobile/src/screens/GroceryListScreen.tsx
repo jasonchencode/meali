@@ -54,14 +54,7 @@ export default function GroceryListScreen({ route, navigation }: Props) {
           <Text style={styles.back}>Back</Text>
         </TouchableOpacity>
 
-        <View style={styles.titleRow}>
-          <Text style={styles.title}>Grocery list.</Text>
-          {checked.size > 0 && (
-            <TouchableOpacity onPress={() => setChecked(new Set())} hitSlop={12}>
-              <Text style={styles.clearAll}>Clear all</Text>
-            </TouchableOpacity>
-          )}
-        </View>
+        <Text style={styles.title}>Grocery list.</Text>
         <Text style={styles.subtitle}>
           {remaining === 0
             ? "All done!"
@@ -110,6 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "700",
     color: "#0D0D0D",
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 15,
@@ -153,16 +147,5 @@ const styles = StyleSheet.create({
   itemTextDone: {
     color: "#B0B0B0",
     textDecorationLine: "line-through",
-  },
-  titleRow: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "space-between",
-    marginBottom: 8,
-  },
-  clearAll: {
-    fontSize: 14,
-    color: "#6B6B6B",
-    fontWeight: "500",
   },
 });
