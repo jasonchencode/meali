@@ -43,6 +43,9 @@ export default function IngredientBreakdownScreen({ route, navigation }: Props) 
                 {DAY_LABELS[day - 1] ?? `Day ${day}`}
               </Text>
               <Text style={styles.mealName}>{meal.name}</Text>
+              <Text style={styles.nutrients}>
+                ~{meal.calories} cal · {meal.protein}g protein
+              </Text>
               <View style={styles.ingredientList}>
                 {meal.ingredients.map((ingredient) => {
                   const have = dismissedSet.has(ingredient.toLowerCase());
@@ -118,7 +121,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "700",
     color: "#0D0D0D",
-    marginBottom: 14,
+    marginBottom: 4,
+  },
+  nutrients: {
+    fontSize: 13,
+    fontWeight: "500",
+    color: "#81D681",
+    marginBottom: 12,
   },
   ingredientList: {
     gap: 8,

@@ -56,6 +56,9 @@ export default function MealPlanScreen({ route, navigation }: Props) {
               <Text style={styles.dayLabel}>{DAY_LABELS[day - 1] ?? `Day ${day}`}</Text>
               <Text style={styles.mealName}>{meal.name}</Text>
               <Text style={styles.mealDescription}>{meal.description}</Text>
+              <Text style={styles.nutrients}>
+                ~{meal.calories} cal · {meal.protein}g protein
+              </Text>
               <View style={styles.tags}>
                 {meal.equipment.map((e) => (
                   <View key={e} style={styles.tag}>
@@ -124,6 +127,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#6B6B6B",
     lineHeight: 20,
+    marginBottom: 8,
+  },
+  nutrients: {
+    fontSize: 13,
+    fontWeight: "500",
+    color: "#81D681",
     marginBottom: 12,
   },
   tags: {

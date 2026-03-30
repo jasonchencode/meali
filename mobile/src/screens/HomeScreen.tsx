@@ -260,6 +260,15 @@ export default function HomeScreen({ navigation }: Props) {
                       {profile.weeklyRunFrequency === 1 ? "run" : "runs"} / week
                     </Text>
                   </View>
+
+                  <View style={styles.preferenceCard}>
+                    <Text style={styles.preferenceTitle}>Nutrition goals</Text>
+                    <Text style={styles.preferenceValue}>
+                      {profile.nutrientGoals
+                        ? `${profile.nutrientGoals.calories} cal · ${profile.nutrientGoals.protein}g protein`
+                        : "Not set"}
+                    </Text>
+                  </View>
                 </>
               ) : (
                 <Text style={styles.empty}>No preferences saved yet.</Text>

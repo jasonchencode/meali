@@ -14,6 +14,8 @@ export interface Meal {
   diets: string[];
   budget: "low" | "medium" | "high";
   ingredients: string[];
+  calories: number;
+  protein: number;
 }
 
 export interface MealPlanDay {

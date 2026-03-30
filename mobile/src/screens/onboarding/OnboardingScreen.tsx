@@ -11,16 +11,17 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createUserProfile, updateUserProfile } from "../../api/userProfile";
 import StepIndicator from "../../components/StepIndicator";
-import { BudgetLevel } from "../../types/profile";
+import { BudgetLevel, NutrientGoals } from "../../types/profile";
 import { RootStackParamList } from "../../types/navigation";
 import BudgetStep from "./steps/BudgetStep";
 import DietStep from "./steps/DietStep";
 import EquipmentStep from "./steps/EquipmentStep";
 import FrequencyStep from "./steps/FrequencyStep";
+import NutrientsStep from "./steps/NutrientsStep";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Onboarding">;
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 export default function OnboardingScreen({ navigation, route }: Props) {
   const initialProfile = route.params?.initialProfile;
@@ -36,6 +37,9 @@ export default function OnboardingScreen({ navigation, route }: Props) {
   );
   const [weeklyRunFrequency, setWeeklyRunFrequency] = useState(
     initialProfile?.weeklyRunFrequency ?? 2
+  );
+  const [nutrientGoals, setNutrientGoals] = useState<NutrientGoals>(
+    initialProfile?.nutrientGoals ?? { calories: 2000, protein: 100 }
   );
   const [loading, setLoading] = useState(false);
 
@@ -54,9 +58,9 @@ export default function OnboardingScreen({ navigation, route }: Props) {
     setLoading(true);
     try {
       if (isEditing) {
-        await updateUserProfile({ equipment, diets, budgetLevel, weeklyRunFrequency });
+        await updateUserProfile({ equipment, diets, budgetLevel, weeklyRunFrequency, nutrientGoals });
       } else {
-        await createUserProfile({ equipment, diets, budgetLevel, weeklyRunFrequency });
+        await createUserProfile({ equipment, diets, budgetLevel, weeklyRunFrequency, nutrientGoals });
       }
       navigation.replace(isEditing ? "Home" : "Confirmation");
     } catch (e: unknown) {
@@ -102,6 +106,9 @@ export default function OnboardingScreen({ navigation, route }: Props) {
           )}
           {step === 3 && (
             <FrequencyStep value={weeklyRunFrequency} onChange={setWeeklyRunFrequency} />
+          )}
+          {step === 4 && (
+            <NutrientsStep value={nutrientGoals} onChange={setNutrientGoals} />
           )}
         </View>
 

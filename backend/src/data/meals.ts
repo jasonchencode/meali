@@ -6,6 +6,8 @@ export interface Meal {
   diets: string[];
   budget: "low" | "medium" | "high";
   ingredients: string[];
+  calories: number;
+  protein: number;
 }
 
 // A meal is included if the user has ALL required equipment,
@@ -22,6 +24,8 @@ const meals: Meal[] = [
     diets: ["vegetarian"],
     budget: "low",
     ingredients: ["3 eggs", "2 slices bread", "1 tbsp butter", "salt", "pepper"],
+    calories: 380,
+    protein: 20,
   },
   {
     id: "2",
@@ -31,6 +35,8 @@ const meals: Meal[] = [
     diets: ["vegetarian", "vegan", "gluten-free", "dairy-free"],
     budget: "low",
     ingredients: ["1 cup white rice", "1 can black beans", "1 tsp cumin", "1 tsp garlic powder", "salt"],
+    calories: 420,
+    protein: 18,
   },
   {
     id: "3",
@@ -40,6 +46,8 @@ const meals: Meal[] = [
     diets: ["vegetarian", "vegan", "dairy-free"],
     budget: "low",
     ingredients: ["1 cup rolled oats", "1 banana", "2 tbsp peanut butter", "1 cup water", "pinch of salt"],
+    calories: 450,
+    protein: 14,
   },
   {
     id: "4",
@@ -49,6 +57,8 @@ const meals: Meal[] = [
     diets: ["vegetarian", "vegan", "dairy-free"],
     budget: "low",
     ingredients: ["2 cups mixed vegetables", "2 tbsp soy sauce", "3 cloves garlic", "1 tbsp oil", "1 tsp sesame oil"],
+    calories: 280,
+    protein: 8,
   },
   {
     id: "5",
@@ -58,6 +68,8 @@ const meals: Meal[] = [
     diets: ["vegetarian", "vegan", "dairy-free"],
     budget: "low",
     ingredients: ["200g spaghetti", "1 can crushed tomatoes", "3 cloves garlic", "1 tbsp olive oil", "salt", "dried basil"],
+    calories: 520,
+    protein: 15,
   },
   {
     id: "6",
@@ -67,6 +79,8 @@ const meals: Meal[] = [
     diets: ["vegetarian", "vegan", "gluten-free", "dairy-free"],
     budget: "low",
     ingredients: ["1 cup jasmine rice", "4 cups water", "2 green onions", "2 tbsp soy sauce", "1 tsp ginger"],
+    calories: 310,
+    protein: 7,
   },
   {
     id: "7",
@@ -76,6 +90,8 @@ const meals: Meal[] = [
     diets: ["vegetarian", "vegan", "gluten-free", "dairy-free", "halal", "kosher"],
     budget: "low",
     ingredients: ["1 cup red lentils", "1 onion", "2 cloves garlic", "1 tsp cumin", "1 lemon", "3 cups vegetable broth"],
+    calories: 380,
+    protein: 22,
   },
 
   // Medium budget
@@ -87,6 +103,8 @@ const meals: Meal[] = [
     diets: ["dairy-free", "halal"],
     budget: "medium",
     ingredients: ["2 cups cooked rice", "200g chicken breast", "2 eggs", "1 cup frozen peas and carrots", "3 tbsp soy sauce", "2 cloves garlic", "1 tbsp oil"],
+    calories: 580,
+    protein: 38,
   },
   {
     id: "9",
@@ -96,6 +114,8 @@ const meals: Meal[] = [
     diets: ["gluten-free", "dairy-free", "pescatarian", "halal", "kosher"],
     budget: "medium",
     ingredients: ["2 salmon fillets", "1 zucchini", "1 bell pepper", "1 tbsp olive oil", "2 cloves garlic", "lemon", "salt", "pepper"],
+    calories: 490,
+    protein: 42,
   },
   {
     id: "10",
@@ -105,6 +125,8 @@ const meals: Meal[] = [
     diets: ["gluten-free", "dairy-free", "halal"],
     budget: "medium",
     ingredients: ["4 chicken thighs", "1 tsp paprika", "1 tsp garlic powder", "1 tsp onion powder", "1 tbsp olive oil", "salt", "pepper"],
+    calories: 560,
+    protein: 46,
   },
   {
     id: "11",
@@ -114,6 +136,8 @@ const meals: Meal[] = [
     diets: ["gluten-free", "dairy-free", "halal"],
     budget: "medium",
     ingredients: ["500g chicken breast", "1 can coconut milk", "2 tbsp curry powder", "1 onion", "3 cloves garlic", "1 tbsp oil", "salt"],
+    calories: 620,
+    protein: 48,
   },
   {
     id: "12",
@@ -123,6 +147,8 @@ const meals: Meal[] = [
     diets: ["vegetarian", "vegan", "gluten-free", "dairy-free"],
     budget: "medium",
     ingredients: ["2 frozen bananas", "1 cup frozen berries", "1/4 cup granola", "1 tbsp chia seeds", "1 tbsp almond butter"],
+    calories: 380,
+    protein: 9,
   },
   {
     id: "13",
@@ -132,6 +158,8 @@ const meals: Meal[] = [
     diets: ["pescatarian", "dairy-free"],
     budget: "medium",
     ingredients: ["300g shrimp", "6 small tortillas", "2 cups coleslaw mix", "1 lime", "1 tsp cumin", "1 tsp chili powder", "1 tbsp oil"],
+    calories: 520,
+    protein: 36,
   },
   {
     id: "14",
@@ -141,6 +169,8 @@ const meals: Meal[] = [
     diets: ["vegetarian", "gluten-free"],
     budget: "medium",
     ingredients: ["4 bell peppers", "1 cup cooked rice", "1 can kidney beans", "1 cup shredded cheese", "1 can diced tomatoes", "1 tsp cumin"],
+    calories: 480,
+    protein: 22,
   },
 
   // High budget
@@ -152,6 +182,8 @@ const meals: Meal[] = [
     diets: ["gluten-free", "dairy-free", "halal"],
     budget: "high",
     ingredients: ["4 lamb chops", "3 cloves garlic", "2 tbsp olive oil", "1 tbsp fresh rosemary", "1 tbsp fresh thyme", "salt", "pepper"],
+    calories: 680,
+    protein: 52,
   },
   {
     id: "16",
@@ -161,6 +193,8 @@ const meals: Meal[] = [
     diets: ["gluten-free", "halal"],
     budget: "high",
     ingredients: ["2 ribeye steaks", "3 tbsp butter", "4 cloves garlic", "2 sprigs rosemary", "salt", "black pepper"],
+    calories: 780,
+    protein: 58,
   },
   {
     id: "17",
@@ -170,6 +204,8 @@ const meals: Meal[] = [
     diets: ["pescatarian", "kosher"],
     budget: "high",
     ingredients: ["2 lobster tails", "1 cup heavy cream", "1 onion", "2 cloves garlic", "2 tbsp tomato paste", "2 tbsp brandy", "2 cups seafood stock"],
+    calories: 520,
+    protein: 28,
   },
   {
     id: "18",
@@ -179,6 +215,8 @@ const meals: Meal[] = [
     diets: ["pescatarian", "gluten-free", "dairy-free", "kosher"],
     budget: "high",
     ingredients: ["200g sashimi-grade tuna or salmon", "1 cup sushi rice", "1 avocado", "2 tbsp rice vinegar", "1 tbsp sesame seeds", "soy sauce"],
+    calories: 580,
+    protein: 38,
   },
   {
     id: "19",
@@ -188,6 +226,8 @@ const meals: Meal[] = [
     diets: ["vegetarian", "gluten-free"],
     budget: "high",
     ingredients: ["1.5 cups arborio rice", "300g mixed wild mushrooms", "1/2 cup parmesan", "1 onion", "3 cups vegetable broth", "1 tbsp truffle oil", "2 tbsp butter"],
+    calories: 640,
+    protein: 18,
   },
   {
     id: "20",
@@ -197,6 +237,8 @@ const meals: Meal[] = [
     diets: ["gluten-free", "dairy-free", "halal"],
     budget: "high",
     ingredients: ["2 duck breasts", "1 cup cherries", "2 tbsp honey", "1 tbsp balsamic vinegar", "salt", "pepper"],
+    calories: 620,
+    protein: 44,
   },
 ];
 
