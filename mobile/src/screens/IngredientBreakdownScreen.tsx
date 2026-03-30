@@ -9,12 +9,18 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../types/navigation";
+import { mealsForDay, slotLabel } from "../utils/mealPlan";
 
 type Props = NativeStackScreenProps<RootStackParamList, "IngredientBreakdown">;
 
 const DAY_LABELS = [
-  "Monday", "Tuesday", "Wednesday", "Thursday",
-  "Friday", "Saturday", "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
 ];
 
 export default function IngredientBreakdownScreen({ route, navigation }: Props) {
@@ -37,36 +43,40 @@ export default function IngredientBreakdownScreen({ route, navigation }: Props) 
         </Text>
 
         <View style={styles.cards}>
-          {plan.map(({ day, meal }) => (
-            <View key={day} style={styles.card}>
+          {plan.map((dayPlan) => (
+            <View key={dayPlan.day} style={styles.card}>
               <Text style={styles.dayLabel}>
-                {DAY_LABELS[day - 1] ?? `Day ${day}`}
+                {DAY_LABELS[dayPlan.day - 1] ?? `Day ${dayPlan.day}`}
               </Text>
-              <Text style={styles.mealName}>{meal.name}</Text>
-              <Text style={styles.nutrients}>
-                ~{meal.calories} cal · {meal.protein}g protein
-              </Text>
-              <View style={styles.ingredientList}>
-                {meal.ingredients.map((ingredient) => {
-                  const have = dismissedSet.has(ingredient.toLowerCase());
-                  return (
-                    <View key={ingredient} style={styles.ingredientRow}>
-                      <View style={[styles.dot, have && styles.dotHave]} />
-                      <Text
-                        style={[
-                          styles.ingredientText,
-                          have && styles.ingredientTextHave,
-                        ]}
-                      >
-                        {ingredient}
-                      </Text>
-                      {have && (
-                        <Text style={styles.haveLabel}>have it</Text>
-                      )}
-                    </View>
-                  );
-                })}
-              </View>
+
+              {mealsForDay(dayPlan).map(({ slot, meal }) => (
+                <View key={slot} style={styles.mealSection}>
+                  <Text style={styles.slotHeading}>{slotLabel(slot)}</Text>
+                  <Text style={styles.mealName}>{meal.name}</Text>
+                  <Text style={styles.nutrients}>
+                    ~{meal.calories} cal · {meal.protein}g protein
+                  </Text>
+                  <View style={styles.ingredientList}>
+                    {meal.ingredients.map((ingredient) => {
+                      const have = dismissedSet.has(ingredient.toLowerCase());
+                      return (
+                        <View key={`${slot}-${ingredient}`} style={styles.ingredientRow}>
+                          <View style={[styles.dot, have && styles.dotHave]} />
+                          <Text
+                            style={[
+                              styles.ingredientText,
+                              have && styles.ingredientTextHave,
+                            ]}
+                          >
+                            {ingredient}
+                          </Text>
+                          {have && <Text style={styles.haveLabel}>have it</Text>}
+                        </View>
+                      );
+                    })}
+                  </View>
+                </View>
+              ))}
             </View>
           ))}
         </View>
@@ -115,6 +125,20 @@ const styles = StyleSheet.create({
     color: "#6B6B6B",
     textTransform: "uppercase",
     letterSpacing: 0.8,
+    marginBottom: 12,
+  },
+  mealSection: {
+    marginBottom: 18,
+    paddingBottom: 18,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F0F0F0",
+  },
+  slotHeading: {
+    fontSize: 11,
+    fontWeight: "700",
+    color: "#9A9A9A",
+    textTransform: "uppercase",
+    letterSpacing: 0.9,
     marginBottom: 4,
   },
   mealName: {

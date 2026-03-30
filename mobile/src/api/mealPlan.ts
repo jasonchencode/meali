@@ -20,7 +20,9 @@ export interface Meal {
 
 export interface MealPlanDay {
   day: number;
-  meal: Meal;
+  breakfast: Meal;
+  lunch: Meal;
+  dinner: Meal;
 }
 
 export interface MealPlanResponse {

@@ -14,7 +14,9 @@ interface GenerateRequestBody {
 
 export interface MealPlanDay {
   day: number;
-  meal: Meal;
+  breakfast: Meal;
+  lunch: Meal;
+  dinner: Meal;
 }
 
 function normalizeDiet(diet: string): string {
@@ -79,11 +81,21 @@ router.post("/generate", async (req: Request, res: Response) => {
     });
   }
 
-  // Shuffle and pick enough meals, cycling if the pool is smaller than daysToGenerate
+  // Three meals per day (breakfast, lunch, dinner). Sequentially draw from a shuffled pool
+  // so the same meal is less likely to repeat back-to-back when the pool is large enough.
   const shuffled = shuffle(eligible);
+  let mealIndex = 0;
+  function nextMeal(): Meal {
+    const m = shuffled[mealIndex % shuffled.length];
+    mealIndex += 1;
+    return m;
+  }
+
   const plan: MealPlanDay[] = Array.from({ length: daysToGenerate }, (_, i) => ({
     day: i + 1,
-    meal: shuffled[i % shuffled.length],
+    breakfast: nextMeal(),
+    lunch: nextMeal(),
+    dinner: nextMeal(),
   }));
 
   return res.json({ daysToGenerate, plan });

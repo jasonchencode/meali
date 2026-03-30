@@ -11,6 +11,7 @@ import {
 import { Swipeable } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { mergeIngredients } from "../utils/ingredients";
+import { allMealsFromPlan } from "../utils/mealPlan";
 import { RootStackParamList } from "../types/navigation";
 
 type Props = NativeStackScreenProps<RootStackParamList, "GroceryList">;
@@ -19,7 +20,9 @@ export default function GroceryListScreen({ route, navigation }: Props) {
   const { plan } = route.params;
 
   // Collect all ingredients across all meals then merge/sum duplicates
-  const rawIngredients: string[] = plan.flatMap(({ meal }) => meal.ingredients);
+  const rawIngredients: string[] = allMealsFromPlan(plan).flatMap(
+    (meal) => meal.ingredients
+  );
   const allIngredients = mergeIngredients(rawIngredients);
 
   const [checked, setChecked] = useState<Set<string>>(new Set());
