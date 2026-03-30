@@ -7,4 +7,5 @@ export type RootStackParamList = {
   Onboarding: { initialProfile?: UserProfile; isEditing?: boolean } | undefined;
   Confirmation: undefined;
   MealPlan: { plan: MealPlanDay[]; daysToGenerate: number };
+  GroceryList: { plan: MealPlanDay[] };
 };

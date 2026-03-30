@@ -5,6 +5,7 @@ export interface Meal {
   equipment: string[];
   diets: string[];
   budget: "low" | "medium" | "high";
+  ingredients: string[];
 }
 
 // A meal is included if the user has ALL required equipment,
@@ -20,6 +21,7 @@ const meals: Meal[] = [
     equipment: ["stovetop", "toaster"],
     diets: ["vegetarian"],
     budget: "low",
+    ingredients: ["3 eggs", "2 slices bread", "1 tbsp butter", "salt", "pepper"],
   },
   {
     id: "2",
@@ -28,6 +30,7 @@ const meals: Meal[] = [
     equipment: ["microwave"],
     diets: ["vegetarian", "vegan", "gluten-free", "dairy-free"],
     budget: "low",
+    ingredients: ["1 cup white rice", "1 can black beans", "1 tsp cumin", "1 tsp garlic powder", "salt"],
   },
   {
     id: "3",
@@ -36,6 +39,7 @@ const meals: Meal[] = [
     equipment: ["microwave"],
     diets: ["vegetarian", "vegan", "dairy-free"],
     budget: "low",
+    ingredients: ["1 cup rolled oats", "1 banana", "2 tbsp peanut butter", "1 cup water", "pinch of salt"],
   },
   {
     id: "4",
@@ -44,6 +48,7 @@ const meals: Meal[] = [
     equipment: ["stovetop"],
     diets: ["vegetarian", "vegan", "dairy-free"],
     budget: "low",
+    ingredients: ["2 cups mixed vegetables", "2 tbsp soy sauce", "3 cloves garlic", "1 tbsp oil", "1 tsp sesame oil"],
   },
   {
     id: "5",
@@ -52,6 +57,7 @@ const meals: Meal[] = [
     equipment: ["stovetop"],
     diets: ["vegetarian", "vegan", "dairy-free"],
     budget: "low",
+    ingredients: ["200g spaghetti", "1 can crushed tomatoes", "3 cloves garlic", "1 tbsp olive oil", "salt", "dried basil"],
   },
   {
     id: "6",
@@ -60,6 +66,7 @@ const meals: Meal[] = [
     equipment: ["rice cooker"],
     diets: ["vegetarian", "vegan", "gluten-free", "dairy-free"],
     budget: "low",
+    ingredients: ["1 cup jasmine rice", "4 cups water", "2 green onions", "2 tbsp soy sauce", "1 tsp ginger"],
   },
   {
     id: "7",
@@ -68,6 +75,7 @@ const meals: Meal[] = [
     equipment: ["stovetop"],
     diets: ["vegetarian", "vegan", "gluten-free", "dairy-free", "halal", "kosher"],
     budget: "low",
+    ingredients: ["1 cup red lentils", "1 onion", "2 cloves garlic", "1 tsp cumin", "1 lemon", "3 cups vegetable broth"],
   },
 
   // Medium budget
@@ -78,6 +86,7 @@ const meals: Meal[] = [
     equipment: ["stovetop"],
     diets: ["dairy-free", "halal"],
     budget: "medium",
+    ingredients: ["2 cups cooked rice", "200g chicken breast", "2 eggs", "1 cup frozen peas and carrots", "3 tbsp soy sauce", "2 cloves garlic", "1 tbsp oil"],
   },
   {
     id: "9",
@@ -86,6 +95,7 @@ const meals: Meal[] = [
     equipment: ["oven"],
     diets: ["gluten-free", "dairy-free", "pescatarian", "halal", "kosher"],
     budget: "medium",
+    ingredients: ["2 salmon fillets", "1 zucchini", "1 bell pepper", "1 tbsp olive oil", "2 cloves garlic", "lemon", "salt", "pepper"],
   },
   {
     id: "10",
@@ -94,6 +104,7 @@ const meals: Meal[] = [
     equipment: ["air fryer"],
     diets: ["gluten-free", "dairy-free", "halal"],
     budget: "medium",
+    ingredients: ["4 chicken thighs", "1 tsp paprika", "1 tsp garlic powder", "1 tsp onion powder", "1 tbsp olive oil", "salt", "pepper"],
   },
   {
     id: "11",
@@ -102,6 +113,7 @@ const meals: Meal[] = [
     equipment: ["instant pot"],
     diets: ["gluten-free", "dairy-free", "halal"],
     budget: "medium",
+    ingredients: ["500g chicken breast", "1 can coconut milk", "2 tbsp curry powder", "1 onion", "3 cloves garlic", "1 tbsp oil", "salt"],
   },
   {
     id: "12",
@@ -110,6 +122,7 @@ const meals: Meal[] = [
     equipment: ["blender"],
     diets: ["vegetarian", "vegan", "gluten-free", "dairy-free"],
     budget: "medium",
+    ingredients: ["2 frozen bananas", "1 cup frozen berries", "1/4 cup granola", "1 tbsp chia seeds", "1 tbsp almond butter"],
   },
   {
     id: "13",
@@ -118,6 +131,7 @@ const meals: Meal[] = [
     equipment: ["stovetop"],
     diets: ["pescatarian", "dairy-free"],
     budget: "medium",
+    ingredients: ["300g shrimp", "6 small tortillas", "2 cups coleslaw mix", "1 lime", "1 tsp cumin", "1 tsp chili powder", "1 tbsp oil"],
   },
   {
     id: "14",
@@ -126,6 +140,7 @@ const meals: Meal[] = [
     equipment: ["oven"],
     diets: ["vegetarian", "gluten-free"],
     budget: "medium",
+    ingredients: ["4 bell peppers", "1 cup cooked rice", "1 can kidney beans", "1 cup shredded cheese", "1 can diced tomatoes", "1 tsp cumin"],
   },
 
   // High budget
@@ -136,6 +151,7 @@ const meals: Meal[] = [
     equipment: ["oven"],
     diets: ["gluten-free", "dairy-free", "halal"],
     budget: "high",
+    ingredients: ["4 lamb chops", "3 cloves garlic", "2 tbsp olive oil", "1 tbsp fresh rosemary", "1 tbsp fresh thyme", "salt", "pepper"],
   },
   {
     id: "16",
@@ -144,6 +160,7 @@ const meals: Meal[] = [
     equipment: ["stovetop"],
     diets: ["gluten-free", "halal"],
     budget: "high",
+    ingredients: ["2 ribeye steaks", "3 tbsp butter", "4 cloves garlic", "2 sprigs rosemary", "salt", "black pepper"],
   },
   {
     id: "17",
@@ -152,6 +169,7 @@ const meals: Meal[] = [
     equipment: ["stovetop", "blender"],
     diets: ["pescatarian", "kosher"],
     budget: "high",
+    ingredients: ["2 lobster tails", "1 cup heavy cream", "1 onion", "2 cloves garlic", "2 tbsp tomato paste", "2 tbsp brandy", "2 cups seafood stock"],
   },
   {
     id: "18",
@@ -160,6 +178,7 @@ const meals: Meal[] = [
     equipment: ["rice cooker"],
     diets: ["pescatarian", "gluten-free", "dairy-free", "kosher"],
     budget: "high",
+    ingredients: ["200g sashimi-grade tuna or salmon", "1 cup sushi rice", "1 avocado", "2 tbsp rice vinegar", "1 tbsp sesame seeds", "soy sauce"],
   },
   {
     id: "19",
@@ -168,6 +187,7 @@ const meals: Meal[] = [
     equipment: ["stovetop"],
     diets: ["vegetarian", "gluten-free"],
     budget: "high",
+    ingredients: ["1.5 cups arborio rice", "300g mixed wild mushrooms", "1/2 cup parmesan", "1 onion", "3 cups vegetable broth", "1 tbsp truffle oil", "2 tbsp butter"],
   },
   {
     id: "20",
@@ -176,6 +196,7 @@ const meals: Meal[] = [
     equipment: ["air fryer", "stovetop"],
     diets: ["gluten-free", "dairy-free", "halal"],
     budget: "high",
+    ingredients: ["2 duck breasts", "1 cup cherries", "2 tbsp honey", "1 tbsp balsamic vinegar", "salt", "pepper"],
   },
 ];
 

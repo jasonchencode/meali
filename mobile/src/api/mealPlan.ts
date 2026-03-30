@@ -13,6 +13,7 @@ export interface Meal {
   equipment: string[];
   diets: string[];
   budget: "low" | "medium" | "high";
+  ingredients: string[];
 }
 
 export interface MealPlanDay {
