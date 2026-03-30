@@ -44,7 +44,9 @@ export default function MealPlanScreen({ route, navigation }: Props) {
               <View style={styles.tags}>
                 {meal.equipment.map((e) => (
                   <View key={e} style={styles.tag}>
-                    <Text style={styles.tagText}>{e}</Text>
+                    <Text style={styles.tagText}>
+                      {e.replace(/\b\w/g, (c) => c.toUpperCase())}
+                    </Text>
                   </View>
                 ))}
               </View>
