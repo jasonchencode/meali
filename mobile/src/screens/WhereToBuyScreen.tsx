@@ -28,6 +28,8 @@ const STORES = [
     walkTime: "2 min walk",
     totalTime: "20–30 min",
     mapsQuery: "Metro+310+Barrie+St+Kingston+ON",
+    /** Hard-coded typical basket for this list — not live pricing */
+    estimatedListTotalCdn: "$44–54",
   },
   {
     id: "foodbasics",
@@ -38,6 +40,7 @@ const STORES = [
     walkTime: "15 min drive",
     totalTime: "40–55 min",
     mapsQuery: "Food+Basics+1225+Princess+St+Kingston+ON",
+    estimatedListTotalCdn: "$38–48",
   },
   {
     id: "costco",
@@ -48,6 +51,7 @@ const STORES = [
     walkTime: "20 min drive",
     totalTime: "50–70 min",
     mapsQuery: "Costco+1015+Centennial+Dr+Kingston+ON",
+    estimatedListTotalCdn: "$52–68",
   },
 ];
 
@@ -60,6 +64,8 @@ const DELIVERY = [
     color: "#000000",
     url: "ubereats://",
     fallback: "https://ubereats.com",
+    /** Est. service + delivery on top of groceries (not the food itself) */
+    estimatedFeesCdn: "$10–18",
   },
   {
     id: "doordash",
@@ -69,6 +75,7 @@ const DELIVERY = [
     color: "#FF3008",
     url: "doordash://",
     fallback: "https://doordash.com",
+    estimatedFeesCdn: "$9–16",
   },
   {
     id: "instacart",
@@ -78,6 +85,7 @@ const DELIVERY = [
     color: "#43B02A",
     url: "instacart://",
     fallback: "https://instacart.com",
+    estimatedFeesCdn: "$12–22",
   },
 ];
 
@@ -166,6 +174,9 @@ export default function WhereToBuyScreen({ navigation }: Props) {
                 <Text style={styles.storeName}>{store.name}</Text>
                 <Text style={styles.storeAddress}>{store.address}</Text>
                 <Text style={styles.storeTime}>{store.walkTime} · {store.totalTime} total</Text>
+                <Text style={styles.estimatedPrice}>
+                  Est. {store.estimatedListTotalCdn} for this list
+                </Text>
               </View>
               <TouchableOpacity
                 style={styles.dirButton}
@@ -189,6 +200,9 @@ export default function WhereToBuyScreen({ navigation }: Props) {
                 </View>
                 <Text style={styles.storeAddress}>{service.detail}</Text>
                 <Text style={styles.storeTime}>Est. {service.time}</Text>
+                <Text style={styles.estimatedPrice}>
+                  Est. {service.estimatedFeesCdn} fees (food extra)
+                </Text>
               </View>
               <TouchableOpacity
                 style={styles.dirButton}
@@ -307,6 +321,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#6B6B6B",
     fontWeight: "500",
+  },
+  estimatedPrice: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#2E7D32",
+    marginTop: 2,
   },
   dirButton: {
     borderWidth: 1.5,
