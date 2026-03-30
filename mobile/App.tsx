@@ -9,6 +9,7 @@ import IngredientBreakdownScreen from "./src/screens/IngredientBreakdownScreen";
 import WhereToBuyScreen from "./src/screens/WhereToBuyScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoadingScreen from "./src/screens/LoadingScreen";
+import MealDetailScreen from "./src/screens/MealDetailScreen";
 import MealPlanScreen from "./src/screens/MealPlanScreen";
 import OnboardingScreen from "./src/screens/onboarding/OnboardingScreen";
 import { MealPlanProvider } from "./src/context/MealPlanContext";
@@ -28,6 +29,7 @@ export default function App() {
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
           <Stack.Screen name="Confirmation" component={ConfirmationScreen} />
           <Stack.Screen name="MealPlan" component={MealPlanScreen} />
+          <Stack.Screen name="MealDetail" component={MealDetailScreen} />
           <Stack.Screen name="GroceryList" component={GroceryListScreen} />
           <Stack.Screen name="IngredientBreakdown" component={IngredientBreakdownScreen} />
           <Stack.Screen name="WhereToBuy" component={WhereToBuyScreen} />

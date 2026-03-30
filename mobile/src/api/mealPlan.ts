@@ -6,6 +6,14 @@ import { UserProfile } from "../types/profile";
 // Never commit .env — it's gitignored.
 const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:3000";
 
+export type MealResourceKind = "article" | "video" | "guide";
+
+export interface MealResource {
+  title: string;
+  url: string;
+  kind: MealResourceKind;
+}
+
 export interface Meal {
   id: string;
   name: string;
@@ -16,6 +24,9 @@ export interface Meal {
   ingredients: string[];
   calories: number;
   protein: number;
+  recipeSteps?: string[];
+  imageUrl?: string;
+  resources?: MealResource[];
 }
 
 export interface MealPlanDay {

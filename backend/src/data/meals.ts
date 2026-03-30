@@ -1,3 +1,6 @@
+import type { MealResource } from "./mealExtras";
+import { MEAL_DEMOS } from "./mealExtras";
+
 export interface Meal {
   id: string;
   name: string;
@@ -8,13 +11,17 @@ export interface Meal {
   ingredients: string[];
   calories: number;
   protein: number;
+  /** Demo: step-by-step instructions for the detail screen */
+  recipeSteps?: string[];
+  imageUrl?: string;
+  resources?: MealResource[];
 }
 
 // A meal is included if the user has ALL required equipment,
 // the meal is compatible with ALL of the user's diet restrictions,
 // and the meal's budget level is <= the user's budget level.
 
-const meals: Meal[] = [
+const mealsBase: Meal[] = [
   // Low budget
   {
     id: "1",
@@ -241,5 +248,10 @@ const meals: Meal[] = [
     protein: 44,
   },
 ];
+
+const meals: Meal[] = mealsBase.map((m) => ({
+  ...m,
+  ...MEAL_DEMOS[m.id],
+}));
 
 export default meals;

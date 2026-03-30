@@ -200,26 +200,32 @@ export default function MealPlanScreen({ navigation }: Props) {
             <View style={styles.mealList}>
               {mealsForDay(activeDay).map(({ slot, meal }) => (
                 <View key={slot}>
-                  <Text style={styles.slotLabel}>{slotLabel(slot)}</Text>
-                  <Text style={styles.mealName}>{meal.name}</Text>
-                  <Text style={styles.mealDescription} numberOfLines={2}>
-                    {meal.description}
-                  </Text>
-                  <Text style={styles.nutrients}>
-                    ~{meal.calories} cal · {meal.protein}g protein
-                  </Text>
-                  <View style={styles.tags}>
-                    {meal.equipment.slice(0, 4).map((e) => (
-                      <View key={e} style={styles.tag}>
-                        <Text style={styles.tagText}>
-                          {e.replace(/\b\w/g, (c) => c.toUpperCase())}
-                        </Text>
-                      </View>
-                    ))}
-                    {meal.equipment.length > 4 && (
-                      <Text style={styles.moreTags}>+{meal.equipment.length - 4}</Text>
-                    )}
-                  </View>
+                  <Pressable
+                    onPress={() => navigation.navigate("MealDetail", { meal })}
+                    style={({ pressed }) => [styles.mealTap, pressed && styles.mealTapPressed]}
+                  >
+                    <Text style={styles.slotLabel}>{slotLabel(slot)}</Text>
+                    <Text style={styles.mealName}>{meal.name}</Text>
+                    <Text style={styles.mealDescription} numberOfLines={2}>
+                      {meal.description}
+                    </Text>
+                    <Text style={styles.nutrients}>
+                      ~{meal.calories} cal · {meal.protein}g protein
+                    </Text>
+                    <View style={styles.tags}>
+                      {meal.equipment.slice(0, 4).map((e) => (
+                        <View key={e} style={styles.tag}>
+                          <Text style={styles.tagText}>
+                            {e.replace(/\b\w/g, (c) => c.toUpperCase())}
+                          </Text>
+                        </View>
+                      ))}
+                      {meal.equipment.length > 4 && (
+                        <Text style={styles.moreTags}>+{meal.equipment.length - 4}</Text>
+                      )}
+                    </View>
+                    <Text style={styles.tapHint}>Tap for ingredients & recipe</Text>
+                  </Pressable>
                   <Pressable
                     style={[styles.swapBtn, !profile && styles.swapBtnDisabled]}
                     onPress={() => openSwap(dayIndex, slot)}
@@ -415,6 +421,21 @@ const styles = StyleSheet.create({
   },
   mealList: {
     gap: 18,
+  },
+  mealTap: {
+    borderRadius: 12,
+    padding: 12,
+    marginHorizontal: -12,
+    marginTop: -4,
+  },
+  mealTapPressed: {
+    backgroundColor: "#F0F0F0",
+  },
+  tapHint: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#9A9A9A",
+    marginTop: 8,
   },
   slotLabel: {
     fontSize: 11,

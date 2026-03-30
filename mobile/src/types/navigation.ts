@@ -1,3 +1,4 @@
+import type { Meal } from "../api/mealPlan";
 import { UserProfile } from "./profile";
 
 export type RootStackParamList = {
@@ -8,5 +9,6 @@ export type RootStackParamList = {
   MealPlan: undefined;
   GroceryList: undefined;
   IngredientBreakdown: { dismissed: string[] };
+  MealDetail: { meal: Meal };
   WhereToBuy: undefined;
 };
