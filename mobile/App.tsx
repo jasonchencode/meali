@@ -5,6 +5,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import ConfirmationScreen from "./src/screens/ConfirmationScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoadingScreen from "./src/screens/LoadingScreen";
+import MealPlanScreen from "./src/screens/MealPlanScreen";
 import OnboardingScreen from "./src/screens/onboarding/OnboardingScreen";
 import { RootStackParamList } from "./src/types/navigation";
 
@@ -19,6 +20,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
           <Stack.Screen name="Confirmation" component={ConfirmationScreen} />
+          <Stack.Screen name="MealPlan" component={MealPlanScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

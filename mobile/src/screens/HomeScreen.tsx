@@ -19,6 +19,7 @@ import {
   getWeeklyMealIdeas,
   saveWeeklyMealIdeas,
 } from "../api/userProfile";
+import { generateMealPlan } from "../api/mealPlan";
 import { UserProfile } from "../types/profile";
 import { RootStackParamList } from "../types/navigation";
 
@@ -42,6 +43,7 @@ export default function HomeScreen({ navigation }: Props) {
   const [weeklyMeals, setWeeklyMeals] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const drawerAnimation = useRef(new Animated.Value(0)).current;
 
@@ -82,6 +84,23 @@ export default function HomeScreen({ navigation }: Props) {
       useNativeDriver: true,
     }).start();
   }, [drawerAnimation, drawerVisible]);
+
+  async function handleGenerate() {
+    if (!profile) return;
+    setGenerating(true);
+    try {
+      const result = await generateMealPlan(profile);
+      navigation.navigate("MealPlan", {
+        plan: result.plan,
+        daysToGenerate: result.daysToGenerate,
+      });
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Something went wrong.";
+      alert(message);
+    } finally {
+      setGenerating(false);
+    }
+  }
 
   async function handleSaveIdeas() {
     setSaving(true);
@@ -169,6 +188,17 @@ export default function HomeScreen({ navigation }: Props) {
             right whenever you want to review or change your setup.
           </Text>
         </View>
+
+        <TouchableOpacity
+          style={[styles.generateBtn, generating && styles.generateBtnDisabled]}
+          onPress={handleGenerate}
+          disabled={generating || !profile}
+          activeOpacity={0.85}
+        >
+          <Text style={styles.generateBtnText}>
+            {generating ? "Generating..." : "Generate meal plan"}
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
 
       <Modal
@@ -366,6 +396,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 22,
     color: "#645D54",
+  },
+  generateBtn: {
+    marginTop: 16,
+    backgroundColor: "#0D0D0D",
+    borderRadius: 18,
+    paddingVertical: 18,
+    alignItems: "center",
+  },
+  generateBtnDisabled: {
+    backgroundColor: "#C8C4BE",
+  },
+  generateBtnText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
   },
   modalRoot: {
     flex: 1,
