@@ -1,9 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ConfirmationScreen from "./src/screens/ConfirmationScreen";
 import GroceryListScreen from "./src/screens/GroceryListScreen";
+import IngredientBreakdownScreen from "./src/screens/IngredientBreakdownScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoadingScreen from "./src/screens/LoadingScreen";
 import MealPlanScreen from "./src/screens/MealPlanScreen";
@@ -14,6 +16,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -23,8 +26,10 @@ export default function App() {
           <Stack.Screen name="Confirmation" component={ConfirmationScreen} />
           <Stack.Screen name="MealPlan" component={MealPlanScreen} />
           <Stack.Screen name="GroceryList" component={GroceryListScreen} />
+          <Stack.Screen name="IngredientBreakdown" component={IngredientBreakdownScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

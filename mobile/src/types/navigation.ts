@@ -8,4 +8,5 @@ export type RootStackParamList = {
   Confirmation: undefined;
   MealPlan: { plan: MealPlanDay[]; daysToGenerate: number };
   GroceryList: { plan: MealPlanDay[] };
+  IngredientBreakdown: { plan: MealPlanDay[]; dismissed: string[] };
 };
