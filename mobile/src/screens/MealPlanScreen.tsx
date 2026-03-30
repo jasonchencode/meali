@@ -132,15 +132,15 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   tag: {
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
+    backgroundColor: "#81D681",
     borderRadius: 100,
     paddingVertical: 4,
     paddingHorizontal: 10,
   },
   tagText: {
     fontSize: 12,
-    color: "#6B6B6B",
+    color: "#2E6417",
+    fontWeight: "500",
   },
   buttonRow: {
     flexDirection: "row",
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     color: "#0D0D0D",
   },
   actionButtonFill: {
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#81D681",
   },
   actionButtonFillText: {
     fontSize: 15,

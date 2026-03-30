@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   emoji: {
     fontSize: 48,
     marginBottom: 24,
-    color: "#0D0D0D",
+    color: "#81D681",
   },
   title: {
     fontSize: 32,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   btn: {
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#81D681",
     borderRadius: 14,
     paddingVertical: 16,
     alignItems: "center",

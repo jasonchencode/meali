@@ -150,14 +150,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   nextBtn: {
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#81D681",
     borderRadius: 14,
     paddingVertical: 16,
     alignItems: "center",
     marginTop: 16,
   },
   nextBtnDisabled: {
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#FFF0DB",
   },
   nextBtnText: {
     color: "#FFFFFF",

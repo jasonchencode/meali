@@ -135,7 +135,7 @@ export default function WhereToBuyScreen({ navigation }: Props) {
         <View style={styles.mapContainer}>
           {!locationReady ? (
             <View style={styles.mapPlaceholder}>
-              <ActivityIndicator color="#6B6B6B" />
+              <ActivityIndicator color="#81D681" />
             </View>
           ) : (
             <MapView ref={mapRef} style={styles.map} region={region} showsUserLocation>

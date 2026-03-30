@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Image, StyleSheet, View } from "react-native";
 import { getUserProfile } from "../api/userProfile";
 import { RootStackParamList } from "../types/navigation";
 
@@ -26,7 +26,12 @@ export default function LoadingScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="small" color="#0D0D0D" />
+      <Image
+        source={require("../../assets/meali-logo.png")}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      <ActivityIndicator size="small" color="#81D681" style={styles.spinner} />
     </View>
   );
 }
@@ -37,5 +42,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     alignItems: "center",
     justifyContent: "center",
+  },
+  logo: {
+    width: 260,
+    height: 260,
+  },
+  spinner: {
+    marginTop: 24,
   },
 });

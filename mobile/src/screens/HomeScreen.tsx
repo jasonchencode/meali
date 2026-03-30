@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Animated,
   Easing,
+  Image,
   Modal,
   Pressable,
   ScrollView,
@@ -31,12 +32,6 @@ const BUDGET_LABELS: Record<string, string> = {
   high: "Flexible",
 };
 
-function greeting(): string {
-  const hour = new Date().getHours();
-  if (hour < 12) return "Good morning.";
-  if (hour < 18) return "Good afternoon.";
-  return "Good evening.";
-}
 
 export default function HomeScreen({ navigation }: Props) {
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -124,7 +119,7 @@ export default function HomeScreen({ navigation }: Props) {
   if (loading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="small" color="#0D0D0D" />
+        <ActivityIndicator size="small" color="#81D681" />
       </View>
     );
   }
@@ -137,8 +132,11 @@ export default function HomeScreen({ navigation }: Props) {
       >
         <View style={styles.topRow}>
           <View>
-            <Text style={styles.appName}>meali</Text>
-            <Text style={styles.greeting}>{greeting()}</Text>
+            <Image
+              source={require("../../assets/meali-logo.png")}
+              style={styles.logo}
+              resizeMode="contain"
+            />
           </View>
           <TouchableOpacity
             style={styles.preferencesButton}
@@ -302,19 +300,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginBottom: 28,
   },
-  appName: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#6F665A",
-    letterSpacing: 1.2,
+  logo: {
+    width: 100,
+    height: 37,
     marginBottom: 10,
-    textTransform: "lowercase",
-  },
-  greeting: {
-    fontSize: 32,
-    fontWeight: "700",
-    color: "#0D0D0D",
-    maxWidth: 220,
   },
   preferencesButton: {
     borderRadius: 999,
@@ -363,7 +352,7 @@ const styles = StyleSheet.create({
   input: {
     minHeight: 220,
     borderRadius: 24,
-    backgroundColor: "#F7F3EE",
+    backgroundColor: "#FFF0DB",
     paddingHorizontal: 18,
     paddingVertical: 18,
     fontSize: 17,
@@ -372,7 +361,7 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   saveButton: {
-    backgroundColor: "#111111",
+    backgroundColor: "#81D681",
     borderRadius: 18,
     paddingVertical: 18,
     alignItems: "center",
@@ -399,13 +388,13 @@ const styles = StyleSheet.create({
   },
   generateBtn: {
     marginTop: 16,
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#81D681",
     borderRadius: 18,
     paddingVertical: 18,
     alignItems: "center",
   },
   generateBtnDisabled: {
-    backgroundColor: "#C8C4BE",
+    backgroundColor: "#FFF0DB",
   },
   generateBtnText: {
     color: "#FFFFFF",
@@ -487,7 +476,7 @@ const styles = StyleSheet.create({
   },
   editBtn: {
     marginTop: "auto",
-    backgroundColor: "#111111",
+    backgroundColor: "#81D681",
     borderRadius: 18,
     paddingVertical: 17,
     alignItems: "center",

@@ -163,16 +163,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   swipeAction: {
-    backgroundColor: "#F0F0F0",
+    backgroundColor: "#81D681",
     justifyContent: "center",
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#F0F0F0",
+    borderBottomColor: "#81D681",
   },
   swipeActionText: {
     fontSize: 13,
     fontWeight: "600",
-    color: "#6B6B6B",
+    color: "#2E6417",
   },
   checkbox: {
     width: 22,
@@ -185,8 +185,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   checkboxDone: {
-    backgroundColor: "#0D0D0D",
-    borderColor: "#0D0D0D",
+    backgroundColor: "#81D681",
+    borderColor: "#81D681",
   },
   checkmark: {
     color: "#FFFFFF",
@@ -205,13 +205,13 @@ const styles = StyleSheet.create({
   breakdownButton: {
     paddingVertical: 14,
     borderWidth: 1.5,
-    borderColor: "#E0E0E0",
+    borderColor: "#81D681",
     borderRadius: 12,
     alignItems: "center",
   },
   breakdownButtonText: {
     fontSize: 15,
     fontWeight: "600",
-    color: "#0D0D0D",
+    color: "#81D681",
   },
 });

@@ -131,11 +131,11 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#81D681",
     marginRight: 10,
   },
   dotHave: {
-    backgroundColor: "#D0D0D0",
+    backgroundColor: "#81D681",
   },
   ingredientText: {
     fontSize: 14,
