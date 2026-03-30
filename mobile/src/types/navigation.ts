@@ -9,4 +9,5 @@ export type RootStackParamList = {
   MealPlan: { plan: MealPlanDay[]; daysToGenerate: number };
   GroceryList: { plan: MealPlanDay[] };
   IngredientBreakdown: { plan: MealPlanDay[]; dismissed: string[] };
+  WhereToBuy: undefined;
 };

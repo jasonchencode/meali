@@ -35,12 +35,20 @@ export default function MealPlanScreen({ route, navigation }: Props) {
           {daysToGenerate} {daysToGenerate === 1 ? "day" : "days"} until your next grocery run.
         </Text>
 
-        <TouchableOpacity
-          style={styles.groceryButton}
-          onPress={() => navigation.navigate("GroceryList", { plan })}
-        >
-          <Text style={styles.groceryButtonText}>View Grocery List</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity
+            style={[styles.actionButton, styles.actionButtonOutline]}
+            onPress={() => navigation.navigate("GroceryList", { plan })}
+          >
+            <Text style={styles.actionButtonOutlineText}>Grocery List</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.actionButton, styles.actionButtonFill]}
+            onPress={() => navigation.navigate("WhereToBuy")}
+          >
+            <Text style={styles.actionButtonFillText}>Where to Buy</Text>
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.cards}>
           {plan.map(({ day, meal }) => (
@@ -134,14 +142,30 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#6B6B6B",
   },
-  groceryButton: {
-    backgroundColor: "#0D0D0D",
+  buttonRow: {
+    flexDirection: "row",
+    gap: 10,
+    marginBottom: 24,
+  },
+  actionButton: {
+    flex: 1,
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
-    marginBottom: 24,
   },
-  groceryButtonText: {
+  actionButtonOutline: {
+    borderWidth: 1.5,
+    borderColor: "#E0E0E0",
+  },
+  actionButtonOutlineText: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#0D0D0D",
+  },
+  actionButtonFill: {
+    backgroundColor: "#0D0D0D",
+  },
+  actionButtonFillText: {
     fontSize: 15,
     fontWeight: "600",
     color: "#FFFFFF",

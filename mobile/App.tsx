@@ -6,6 +6,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import ConfirmationScreen from "./src/screens/ConfirmationScreen";
 import GroceryListScreen from "./src/screens/GroceryListScreen";
 import IngredientBreakdownScreen from "./src/screens/IngredientBreakdownScreen";
+import WhereToBuyScreen from "./src/screens/WhereToBuyScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoadingScreen from "./src/screens/LoadingScreen";
 import MealPlanScreen from "./src/screens/MealPlanScreen";
@@ -27,6 +28,7 @@ export default function App() {
           <Stack.Screen name="MealPlan" component={MealPlanScreen} />
           <Stack.Screen name="GroceryList" component={GroceryListScreen} />
           <Stack.Screen name="IngredientBreakdown" component={IngredientBreakdownScreen} />
+          <Stack.Screen name="WhereToBuy" component={WhereToBuyScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
