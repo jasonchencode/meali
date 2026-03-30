@@ -46,3 +46,32 @@ export async function generateMealPlan(
 
   return response.json();
 }
+
+export interface SwapMealParams {
+  profile: UserProfile;
+  currentMealId: string;
+  sameDayMealIds: string[];
+}
+
+export async function swapMeal(params: SwapMealParams): Promise<Meal> {
+  const { profile, currentMealId, sameDayMealIds } = params;
+  const response = await fetch(`${BASE_URL}/api/meal-plan/swap`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      equipment: profile.equipment,
+      diets: profile.diets,
+      budgetLevel: profile.budgetLevel,
+      currentMealId,
+      sameDayMealIds,
+    }),
+  });
+
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    throw new Error(body.error ?? "Could not find an alternative meal.");
+  }
+
+  const data = (await response.json()) as { meal: Meal };
+  return data.meal;
+}

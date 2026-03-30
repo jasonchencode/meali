@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   ScrollView,
@@ -10,17 +10,24 @@ import {
 } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useMealPlan } from "../context/MealPlanContext";
 import { mergeIngredients } from "../utils/ingredients";
 import { allMealsFromPlan } from "../utils/mealPlan";
 import { RootStackParamList } from "../types/navigation";
 
 type Props = NativeStackScreenProps<RootStackParamList, "GroceryList">;
 
-export default function GroceryListScreen({ route, navigation }: Props) {
-  const { plan } = route.params;
+export default function GroceryListScreen({ navigation }: Props) {
+  const { plan } = useMealPlan();
+
+  useEffect(() => {
+    if (!plan?.length) {
+      navigation.goBack();
+    }
+  }, [plan, navigation]);
 
   // Collect all ingredients across all meals then merge/sum duplicates
-  const rawIngredients: string[] = allMealsFromPlan(plan).flatMap(
+  const rawIngredients: string[] = allMealsFromPlan(plan ?? []).flatMap(
     (meal) => meal.ingredients
   );
   const allIngredients = mergeIngredients(rawIngredients);
@@ -117,7 +124,6 @@ export default function GroceryListScreen({ route, navigation }: Props) {
           style={styles.breakdownButton}
           onPress={() =>
             navigation.navigate("IngredientBreakdown", {
-              plan,
               dismissed: Array.from(dismissed),
             })
           }

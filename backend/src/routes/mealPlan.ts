@@ -55,6 +55,33 @@ function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
+/** Prefer a meal not already used that day; fall back to any meal except the current one. */
+function pickSwapMeal(
+  eligible: Meal[],
+  currentMealId: string,
+  sameDayMealIds: string[]
+): Meal | null {
+  const sameDay = new Set(sameDayMealIds);
+  let candidates = eligible.filter(
+    (m) => m.id !== currentMealId && !sameDay.has(m.id)
+  );
+  if (candidates.length === 0) {
+    candidates = eligible.filter((m) => m.id !== currentMealId);
+  }
+  if (candidates.length === 0) {
+    return null;
+  }
+  return shuffle(candidates)[0]!;
+}
+
+interface SwapRequestBody {
+  equipment: string[];
+  diets: string[];
+  budgetLevel: "low" | "medium" | "high";
+  currentMealId: string;
+  sameDayMealIds: string[];
+}
+
 // POST /api/meal-plan/generate
 router.post("/generate", async (req: Request, res: Response) => {
   const { equipment, diets, budgetLevel, weeklyRunFrequency } =
@@ -99,6 +126,40 @@ router.post("/generate", async (req: Request, res: Response) => {
   }));
 
   return res.json({ daysToGenerate, plan });
+});
+
+// POST /api/meal-plan/swap
+router.post("/swap", async (req: Request, res: Response) => {
+  const { equipment, diets, budgetLevel, currentMealId, sameDayMealIds } =
+    req.body as SwapRequestBody;
+
+  if (!Array.isArray(equipment) || !Array.isArray(diets)) {
+    return res.status(400).json({ error: "equipment and diets must be arrays." });
+  }
+
+  if (!["low", "medium", "high"].includes(budgetLevel)) {
+    return res.status(400).json({ error: "Invalid budgetLevel." });
+  }
+
+  if (typeof currentMealId !== "string" || !currentMealId) {
+    return res.status(400).json({ error: "currentMealId is required." });
+  }
+
+  if (!Array.isArray(sameDayMealIds)) {
+    return res.status(400).json({ error: "sameDayMealIds must be an array." });
+  }
+
+  const eligible = filterMeals(equipment, diets, budgetLevel);
+  const meal = pickSwapMeal(eligible, currentMealId, sameDayMealIds);
+
+  if (!meal) {
+    return res.status(422).json({
+      error:
+        "No alternative meal matches your profile. Try adjusting equipment or diet in preferences.",
+    });
+  }
+
+  return res.json({ meal });
 });
 
 export default router;

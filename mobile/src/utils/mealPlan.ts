@@ -36,3 +36,16 @@ export function slotLabel(slot: MealSlot): string {
       return slot;
   }
 }
+
+export function mealForSlot(day: MealPlanDay, slot: MealSlot): Meal {
+  return day[slot];
+}
+
+/** IDs of the other two meals on the same day (avoid duplicate dishes when possible). */
+export function otherMealIds(day: MealPlanDay, slot: MealSlot): string[] {
+  const ids: string[] = [];
+  if (slot !== "breakfast") ids.push(day.breakfast.id);
+  if (slot !== "lunch") ids.push(day.lunch.id);
+  if (slot !== "dinner") ids.push(day.dinner.id);
+  return ids;
+}

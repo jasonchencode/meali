@@ -21,6 +21,7 @@ import {
   saveWeeklyMealIdeas,
 } from "../api/userProfile";
 import { generateMealPlan } from "../api/mealPlan";
+import { useMealPlan } from "../context/MealPlanContext";
 import { UserProfile } from "../types/profile";
 import { RootStackParamList } from "../types/navigation";
 
@@ -34,6 +35,7 @@ const BUDGET_LABELS: Record<string, string> = {
 
 
 export default function HomeScreen({ navigation }: Props) {
+  const { setMealPlan } = useMealPlan();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [weeklyMeals, setWeeklyMeals] = useState("");
   const [loading, setLoading] = useState(true);
@@ -85,10 +87,8 @@ export default function HomeScreen({ navigation }: Props) {
     setGenerating(true);
     try {
       const result = await generateMealPlan(profile);
-      navigation.navigate("MealPlan", {
-        plan: result.plan,
-        daysToGenerate: result.daysToGenerate,
-      });
+      setMealPlan(result.plan, result.daysToGenerate);
+      navigation.navigate("MealPlan");
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : "Something went wrong.";
       alert(message);

@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useMealPlan } from "../context/MealPlanContext";
 import { RootStackParamList } from "../types/navigation";
 import { mealsForDay, slotLabel } from "../utils/mealPlan";
 
@@ -24,8 +25,15 @@ const DAY_LABELS = [
 ];
 
 export default function IngredientBreakdownScreen({ route, navigation }: Props) {
-  const { plan, dismissed } = route.params;
+  const { plan } = useMealPlan();
+  const { dismissed } = route.params;
   const dismissedSet = new Set(dismissed.map((d) => d.toLowerCase()));
+
+  useEffect(() => {
+    if (!plan?.length) {
+      navigation.goBack();
+    }
+  }, [plan, navigation]);
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -43,7 +51,7 @@ export default function IngredientBreakdownScreen({ route, navigation }: Props) 
         </Text>
 
         <View style={styles.cards}>
-          {plan.map((dayPlan) => (
+          {(plan ?? []).map((dayPlan) => (
             <View key={dayPlan.day} style={styles.card}>
               <Text style={styles.dayLabel}>
                 {DAY_LABELS[dayPlan.day - 1] ?? `Day ${dayPlan.day}`}

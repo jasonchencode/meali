@@ -11,6 +11,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import LoadingScreen from "./src/screens/LoadingScreen";
 import MealPlanScreen from "./src/screens/MealPlanScreen";
 import OnboardingScreen from "./src/screens/onboarding/OnboardingScreen";
+import { MealPlanProvider } from "./src/context/MealPlanContext";
 import { RootStackParamList } from "./src/types/navigation";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -19,6 +20,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
     <SafeAreaProvider>
+      <MealPlanProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Loading" component={LoadingScreen} />
@@ -31,6 +33,7 @@ export default function App() {
           <Stack.Screen name="WhereToBuy" component={WhereToBuyScreen} />
         </Stack.Navigator>
       </NavigationContainer>
+      </MealPlanProvider>
     </SafeAreaProvider>
     </GestureHandlerRootView>
   );
