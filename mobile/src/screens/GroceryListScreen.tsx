@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { mergeIngredients } from "../utils/ingredients";
 import { RootStackParamList } from "../types/navigation";
 
 type Props = NativeStackScreenProps<RootStackParamList, "GroceryList">;
@@ -17,18 +18,9 @@ type Props = NativeStackScreenProps<RootStackParamList, "GroceryList">;
 export default function GroceryListScreen({ route, navigation }: Props) {
   const { plan } = route.params;
 
-  // Aggregate all ingredients across all meals, deduped by lowercase value
-  const seen = new Set<string>();
-  const allIngredients: string[] = [];
-  for (const { meal } of plan) {
-    for (const item of meal.ingredients) {
-      const key = item.toLowerCase();
-      if (!seen.has(key)) {
-        seen.add(key);
-        allIngredients.push(item);
-      }
-    }
-  }
+  // Collect all ingredients across all meals then merge/sum duplicates
+  const rawIngredients: string[] = plan.flatMap(({ meal }) => meal.ingredients);
+  const allIngredients = mergeIngredients(rawIngredients);
 
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [dismissed, setDismissed] = useState<Set<string>>(new Set());
