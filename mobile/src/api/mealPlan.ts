@@ -1,7 +1,7 @@
 import { UserProfile } from "../types/profile";
 
 // BASE_URL is set via EXPO_PUBLIC_API_URL in mobile/.env
-// This should be your machine's local IP + port (e.g. http://192.168.2.14:3000)
+// This should be your machine's local IP + port (e.g. http://YOUR_LOCAL_IP:3000)
 // Copy mobile/.env.example to mobile/.env and fill in your IP before running.
 // Never commit .env — it's gitignored.
 const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:3000";
