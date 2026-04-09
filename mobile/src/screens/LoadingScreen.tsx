@@ -9,15 +9,13 @@ type Props = NativeStackScreenProps<RootStackParamList, "Loading">;
 export default function LoadingScreen({ navigation }: Props) {
   useEffect(() => {
     async function checkProfile() {
-      try {
-        const profile = await getUserProfile();
-        if (profile) {
-          navigation.replace("Home");
-        } else {
-          navigation.replace("Onboarding");
-        }
-      } catch {
-        // On network error fall through to onboarding
+      const [profile] = await Promise.all([
+        getUserProfile().catch(() => null),
+        new Promise((resolve) => setTimeout(resolve, 2000)),
+      ]);
+      if (profile) {
+        navigation.replace("Home");
+      } else {
         navigation.replace("Onboarding");
       }
     }
