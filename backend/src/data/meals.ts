@@ -249,9 +249,11 @@ const mealsBase: Meal[] = [
   },
 ];
 
-const meals: Meal[] = mealsBase.map((m) => ({
+export const mealsLegacy: Meal[] = mealsBase.map((m) => ({
   ...m,
   ...MEAL_DEMOS[m.id],
 }));
+
+const meals: Meal[] = [];
 
 export default meals;
